@@ -1,0 +1,14 @@
+name: configuration_delegate
+version: 0.1.0
+description: Configuration Delegate
+homepage:
+
+environment:
+  sdk: '>=2.8.0 <3.0.0'
+
+dependencies:
+  meta: ^1.2.4
+
+dev_dependencies:
+  analysis_options:
+    git: https://github.com/vaetas/analysis_options.git
