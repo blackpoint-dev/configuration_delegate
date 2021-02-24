@@ -1,7 +1,7 @@
 name: configuration_delegate
 version: 0.1.0
 description: Configuration Delegate
-homepage:
+homepage: https://github.com/blackpoint-dev/configuration_delegate
 
 environment:
   sdk: '>=2.8.0 <3.0.0'

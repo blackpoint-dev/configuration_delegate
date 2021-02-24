@@ -2,7 +2,16 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 
-/// [T] type should override hashCode and equals so the stream can properly
+/// [ConfigurationDelegate] provides unified interface for your config items.
+/// Extend this class for each configurable property in your app and override
+/// needed methods.
+///
+/// Whenever you extend this class you must override [get] method and [key].
+/// Must of the time you probably want to also override the [set] method.
+///
+/// [T] is the type of a configurable property. It can be String or JSON object.
+/// You must implement serialization and deserialization methods for each type.
+/// [T] type should also override hashCode and equals so the stream can properly
 /// emit only distinct events.
 ///
 /// When you provide `initialValue` it is immediately emitted from the [watch].
@@ -15,13 +24,17 @@ abstract class ConfigurationDelegate<T> {
     }
   }
 
+  /// [key] is used for uniquely identifying this property in a storage.
   String get key;
 
   // TODO: Shall we use `BehaviorSubject` from rxdart package?
   final StreamController<T> _controller;
 
+  /// Get current property value.
   FutureOr<T> get();
 
+  /// Set new value for this configurable property.
+  ///
   /// Whenever you override [set] you must call super at the of your method.
   ///
   /// ```dart
@@ -36,6 +49,8 @@ abstract class ConfigurationDelegate<T> {
     _controller.add(value);
   }
 
+  /// Use [watch] to subscribe for updates. Whenever you call [set] to change
+  /// the value, [watch] will emit an event.
   @protected
   Stream<T> watch() => _controller.stream.distinct();
 }
