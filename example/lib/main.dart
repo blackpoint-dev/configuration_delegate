@@ -41,7 +41,7 @@ class _NameConfiguration extends ConfigurationDelegate<String> {
   final Map<String, dynamic> _store;
 
   @override
-  FutureOr<String> get() {
+  Future<String> get() {
     return _store[key] ?? 'DEFAULT VALUE';
   }
 
@@ -85,7 +85,7 @@ class _UserConfiguration extends ConfigurationDelegate<User> {
   final Map<String, dynamic> _store;
 
   @override
-  FutureOr<User> get() {
+  Future<User> get() async {
     final value = _store[key];
 
     if (value != null) {

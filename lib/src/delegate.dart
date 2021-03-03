@@ -31,7 +31,7 @@ abstract class ConfigurationDelegate<T> {
   final StreamController<T> _controller;
 
   /// Get current property value.
-  FutureOr<T> get();
+  Future<T> get();
 
   /// Set new value for this configurable property.
   ///
@@ -51,6 +51,5 @@ abstract class ConfigurationDelegate<T> {
 
   /// Use [watch] to subscribe for updates. Whenever you call [set] to change
   /// the value, [watch] will emit an event.
-  @protected
   Stream<T> watch() => _controller.stream.distinct();
 }
