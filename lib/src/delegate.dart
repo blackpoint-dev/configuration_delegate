@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// [ConfigurationDelegate] provides unified interface for your config items.
 /// Extend this class for each configurable property in your app and override
@@ -18,16 +19,11 @@ import 'package:meta/meta.dart';
 abstract class ConfigurationDelegate<T> {
   ConfigurationDelegate({
     T initialValue,
-  }) : _controller = StreamController<T>.broadcast() {
-    if (initialValue != null) {
-      _controller.add(initialValue);
-    }
-  }
+  }) : _controller = BehaviorSubject.seeded(initialValue);
 
   /// [key] is used for uniquely identifying this property in a storage.
   String get key;
 
-  // TODO: Shall we use `BehaviorSubject` from rxdart package?
   final StreamController<T> _controller;
 
   /// Get current property value.

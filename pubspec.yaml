@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   meta: ^1.2.4
+  rxdart: ^0.26.0
 
 dev_dependencies:
   analysis_options:
