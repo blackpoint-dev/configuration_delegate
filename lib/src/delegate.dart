@@ -17,17 +17,16 @@ import 'package:rxdart/rxdart.dart';
 ///
 /// When you provide `initialValue` it is immediately emitted from the [watch].
 abstract class ConfigurationDelegate<T> {
-  ConfigurationDelegate({
-    T initialValue,
-  }) : _controller = BehaviorSubject.seeded(initialValue);
+  ConfigurationDelegate({T? initialValue})
+    : _controller = BehaviorSubject<T?>.seeded(initialValue);
 
   /// [key] is used for uniquely identifying this property in a storage.
   String get key;
 
-  final StreamController<T> _controller;
+  final StreamController<T?> _controller;
 
   /// Get current property value.
-  Future<T> get();
+  Future<T?> get();
 
   /// Set new value for this configurable property.
   ///
@@ -47,5 +46,5 @@ abstract class ConfigurationDelegate<T> {
 
   /// Use [watch] to subscribe for updates. Whenever you call [set] to change
   /// the value, [watch] will emit an event.
-  Stream<T> watch() => _controller.stream.distinct();
+  Stream<T?> watch() => _controller.stream.distinct();
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, library_private_types_in_public_api
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,10 +24,9 @@ Future<void> main() async {
 /// [ConfigurationRepository] provides field for every configuration item while
 /// delegating all work into its individual [ConfigurationDelegate] classes.
 class ConfigurationRepository {
-  ConfigurationRepository(
-    Map<String, dynamic> _store,
-  )   : name = _NameConfiguration(_store),
-        user = _UserConfiguration(_store);
+  ConfigurationRepository(Map<String, dynamic> store)
+    : name = _NameConfiguration(store),
+      user = _UserConfiguration(store);
 
   final _NameConfiguration name;
 
@@ -53,23 +54,17 @@ class _NameConfiguration extends ConfigurationDelegate<String> {
 }
 
 class User {
-  User({this.name, this.age});
+  User({required this.name, required this.age});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      name: json['name'] as String,
-      age: json['age'] as int,
-    );
+    return User(name: json['name'] as String, age: json['age'] as int);
   }
 
   final String name;
   final int age;
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'name': name,
-      'age': age,
-    };
+    return <String, dynamic>{'name': name, 'age': age};
   }
 
   @override
@@ -85,14 +80,14 @@ class _UserConfiguration extends ConfigurationDelegate<User> {
   final Map<String, dynamic> _store;
 
   @override
-  Future<User> get() async {
-    final value = _store[key];
+  Future<User?> get() async {
+    final value = _store[key] as String?;
 
     if (value != null) {
       return User.fromJson(json.decode(value));
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   @override

@@ -4,12 +4,11 @@ description: Configuration Delegate
 homepage: https://github.com/blackpoint-dev/configuration_delegate
 
 environment:
-  sdk: '>=2.8.0 <3.0.0'
+  sdk: ^3.8.0
 
 dependencies:
-  meta: ^1.2.4
-  rxdart: ^0.25.0
+  meta: ^1.17.0
+  rxdart: ^0.28.0
 
 dev_dependencies:
-  analysis_options:
-    git: https://github.com/vaetas/analysis_options.git
+  flutter_lints: ^6.0.0
